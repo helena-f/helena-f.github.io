@@ -189,7 +189,17 @@ button {
 
 .btn--icon {
   padding: 0;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.btn--icon svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease-in-out;
 }
 
 .btn--icon:hover,
@@ -408,4 +418,56 @@ main {
   .scroll-container {
     display: none;
   }
+}
+
+/* For the theme toggle specifically */
+#btn-theme::before {
+  content: none;
+}
+
+#btn-theme.fas {
+  opacity: 1;
+}
+
+/* Add these styles for SVG icons */
+.btn--icon svg,
+.link--icon svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.link--icon:hover svg {
+  transform: translateY(-3px);
+}
+
+.theme-icon {
+  transform: rotate(-25deg);
+}
+
+/* Add these styles for GitHub icon */
+.github-icon {
+  transform: scale(0.9);
+}
+
+.link--icon:hover .github-icon {
+  transform: scale(0.9) translateY(-3px);
+}
+
+/* Add styles for icon + text combination */
+.link--icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.link--icon-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Update hover effect to include text */
+.link--icon:hover .link--icon-text {
+  transform: translateY(-3px);
+  display: inline-block;
 }
