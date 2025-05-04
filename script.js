@@ -1,64 +1,53 @@
-const body = document.body
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
 
-const btnTheme = document.querySelector('.fa-moon')
-const btnHamburger = document.querySelector('.fa-bars')
+  const btnTheme = document.querySelector('.btn[aria-label="toggle theme"]'); // Updated selector
+  const btnHamburger = document.querySelector('.nav__hamburger');
 
-const addThemeClass = (bodyClass, btnClass) => {
-  body.classList.add(bodyClass)
-  btnTheme.classList.add(btnClass)
-}
+  const addThemeClass = (bodyClass) => {
+    body.classList.add(bodyClass);
+  };
 
-const getBodyTheme = localStorage.getItem('portfolio-theme')
-const getBtnTheme = localStorage.getItem('portfolio-btn-theme')
+  const getBodyTheme = localStorage.getItem('portfolio-theme');
 
-addThemeClass(getBodyTheme, getBtnTheme)
+  if (getBodyTheme) {
+    addThemeClass(getBodyTheme);
+  }
 
-const isDark = () => body.classList.contains('dark')
+  const isDark = () => body.classList.contains('dark');
 
-const setTheme = (bodyClass, btnClass) => {
+  const setTheme = (bodyClass) => {
+    body.classList.remove('light', 'dark'); // Remove both classes
+    addThemeClass(bodyClass);
+    localStorage.setItem('portfolio-theme', bodyClass);
+  };
 
-	body.classList.remove(localStorage.getItem('portfolio-theme'))
-	btnTheme.classList.remove(localStorage.getItem('portfolio-btn-theme'))
+  const toggleTheme = () => {
+    isDark() ? setTheme('light') : setTheme('dark');
+  };
 
-  addThemeClass(bodyClass, btnClass)
+  btnTheme.addEventListener('click', toggleTheme);
 
-	localStorage.setItem('portfolio-theme', bodyClass)
-	localStorage.setItem('portfolio-btn-theme', btnClass)
-}
+  const displayList = () => {
+    const navUl = document.querySelector('.nav__list');
 
-const toggleTheme = () =>
-	alert("hello")
-	isDark() ? setTheme('light', 'fa-moon') : setTheme('dark', 'fa-sun')
+    if (btnHamburger.classList.contains('nav__hamburger')) {
+      btnHamburger.classList.toggle('active');
+      navUl.classList.toggle('display-nav-list');
+    }
+  };
 
-btnTheme.addEventListener('click', toggleTheme)
+  btnHamburger.addEventListener('click', displayList);
 
-const displayList = () => {
-	const navUl = document.querySelector('.nav__list')
+  const scrollUp = () => {
+    const btnScrollTop = document.querySelector('.scroll-top');
 
-	if (btnHamburger.classList.contains('fa-bars')) {
-		btnHamburger.classList.remove('fa-bars')
-		btnHamburger.classList.add('fa-times')
-		navUl.classList.add('display-nav-list')
-	} else {
-		btnHamburger.classList.remove('fa-times')
-		btnHamburger.classList.add('fa-bars')
-		navUl.classList.remove('display-nav-list')
-	}
-}
+    if (body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+      btnScrollTop.style.display = 'block';
+    } else {
+      btnScrollTop.style.display = 'none';
+    }
+  };
 
-btnHamburger.addEventListener('click', displayList)
-
-const scrollUp = () => {
-	const btnScrollTop = document.querySelector('.scroll-top')
-
-	if (
-		body.scrollTop > 500 ||
-		document.documentElement.scrollTop > 500
-	) {
-		btnScrollTop.style.display = 'block'
-	} else {
-		btnScrollTop.style.display = 'none'
-	}
-}
-
-document.addEventListener('scroll', scrollUp)
+  document.addEventListener('scroll', scrollUp);
+});
