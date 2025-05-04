@@ -27,6 +27,7 @@ const setTheme = (bodyClass, btnClass) => {
 }
 
 const toggleTheme = () =>
+	alert("hello")
 	isDark() ? setTheme('light', 'fa-moon') : setTheme('dark', 'fa-sun')
 
 btnTheme.addEventListener('click', toggleTheme)
